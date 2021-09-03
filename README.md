@@ -15,3 +15,8 @@
 
 * **Web Status -> http://host.docker.internal:8007**
 * **Web UI -> http://host.docker.internal:8006**
+
+Config mongodb:
+src/services/catalog_api/config/mongoid.yml
+Config redis:
+src/services/basket_api/config/application.rb

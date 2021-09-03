@@ -5,6 +5,10 @@ services:
     image: mongo
     ports:
         - '27017:27017'
+  basketdb:
+    image: redis:alpine
+    ports:
+        - '6379:6379'
   catalog.api:
     image: catalogapi
     build:
@@ -13,8 +17,14 @@ services:
     command: bundle exec rails s -p 8000 -b 0.0.0.0
     ports:
       - "8000:8000"
-    volumes:
-      - .:/rails-api
+  basket.api:
+    image: basketapi
+    build:
+      context: .
+      dockerfile: services/basket_api/Dockerfile
+    command: bundle exec rails s -p 8001 -b 0.0.0.0
+    ports:
+      - "8001:8001"
 
 volumes:
   mongo_data:
