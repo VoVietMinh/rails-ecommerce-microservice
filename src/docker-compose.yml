@@ -9,6 +9,26 @@ services:
     image: redis:alpine
     ports:
         - '6379:6379'
+  orderdb:
+    image: mysql
+    ports:
+        - '3306:3306'
+    restart: always
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
+      MYSQL_DATABASE: ordering_api_development
+      MYSQL_USER: rails_micro
+      MYSQL_PASSWORD: rails_micro
+  adminerorderdb:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+  redisqueue:
+    image: redis:alpine
+    command: --port 6378
+    ports:
+        - '6378:6378'
   catalog.api:
     image: catalogapi
     build:
@@ -28,3 +48,4 @@ services:
 
 volumes:
   mongo_data:
+  rabbitmq_data:

@@ -38,10 +38,6 @@ module BasketApi
     config.api_only = true
 
     #redis
-    config.cache_store = :redis_store, {
-      host: "172.24.25.69",
-      port: 6379,
-      db: 0,
-    }, {expires_in: 7.days}
+    
   end
 end
