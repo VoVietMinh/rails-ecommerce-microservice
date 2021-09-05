@@ -14,6 +14,7 @@ services:
     ports:
         - '3306:3306'
     restart: always
+    command: mysqld --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
       MYSQL_DATABASE: ordering_api_development
@@ -45,7 +46,20 @@ services:
     command: bundle exec rails s -p 8001 -b 0.0.0.0
     ports:
       - "8001:8001"
-
+  ordering.api:
+    image: orderingapi
+    build:
+      context: .
+      dockerfile: services/ordering_api/Dockerfile
+    command: bash -c "bundle exec rails s -p 8004 -b 0.0.0.0"
+    ports:
+      - "8004:8004"
+  sidekiq:
+    image: orderingsidekiq
+    build: 
+      context: .
+      dockerfile: services/ordering_api/Dockerfile
+    command: bundle exec sidekiq
 volumes:
   mongo_data:
   rabbitmq_data:
