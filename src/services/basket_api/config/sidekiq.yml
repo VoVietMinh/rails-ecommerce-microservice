@@ -1,15 +1,15 @@
 development:
   #host: "redis://172.24.25.69"
-  host: "redis://0.0.0.0"
-  port: 6378
+  host: redis://<%= ENV['HOST_DB'] || '0.0.0.0' %>
+  port: <%= ENV['PORT_BROKER_DB'] || '6378'%>
   db: 0
 
 test:
-  host: "redis://172.24.25.69"
-  port: 6378
+  host: redis://<%= ENV['HOST_DB'] || '0.0.0.0' %>
+  port: <%= ENV['PORT_BROKER_DB'] || '6378'%>
   db: 0
 
 production:
-  host: "redis://172.24.25.69"
-  port: 6378
+  host: redis://<%= ENV['HOST_DB'] || '0.0.0.0' %>
+  port: <%= ENV['PORT_BROKER_DB'] || '6378'%>
   db: 0

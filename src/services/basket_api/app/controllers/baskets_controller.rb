@@ -1,7 +1,7 @@
 class BasketsController < ApplicationController
  
   def show
-    user_name = params[:user]
+    user_name = params[:user_name]
     cart = $redis.get user_name
     json_response(cart)
   end
@@ -17,7 +17,7 @@ class BasketsController < ApplicationController
   end
 
   def destroy
-    user_name = params[:user]
+    user_name = params[:user_name]
     $redis.del user_name
   end
 

@@ -1,6 +1,7 @@
 version: '3.4'
 
 services:
+  # databases
   catalogdb:
     image: mongo
     ports:
@@ -20,16 +21,25 @@ services:
       MYSQL_DATABASE: ordering_api_development
       MYSQL_USER: rails_micro
       MYSQL_PASSWORD: rails_micro
-  adminerorderdb:
+  adminer:
     image: adminer
     restart: always
     ports:
       - 8080:8080
+  coregatewaydb:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: rails_micro
+    ports:
+        - '5432:5432'
+  # brokers
   redisqueue:
     image: redis:alpine
     command: --port 6378
     ports:
         - '6378:6378'
+  # services
   catalog.api:
     image: catalogapi
     build:
@@ -38,6 +48,8 @@ services:
     command: bundle exec rails s -p 8000 -b 0.0.0.0
     ports:
       - "8000:8000"
+    environment:
+      - HOST_DB=${HOST_DB}
   basket.api:
     image: basketapi
     build:
@@ -46,6 +58,10 @@ services:
     command: bundle exec rails s -p 8001 -b 0.0.0.0
     ports:
       - "8001:8001"
+    environment:
+      - HOST_DB=${HOST_DB}
+      - HOST_BROKER_DB=${HOST_DB}
+      - PORT_BROKER_DB=${PORT_BROKER_DB}
   ordering.api:
     image: orderingapi
     build:
@@ -54,12 +70,20 @@ services:
     command: bash -c "bundle exec rails s -p 8004 -b 0.0.0.0"
     ports:
       - "8004:8004"
+    environment:
+      - HOST_DB=${HOST_DB}
+      - HOST_BROKER_DB=${HOST_DB}
+      - PORT_BROKER_DB=${PORT_BROKER_DB}
   sidekiq:
     image: orderingsidekiq
     build: 
       context: .
       dockerfile: services/ordering_api/Dockerfile
     command: bundle exec sidekiq
+    environment:
+      - HOST_DB=${HOST_DB}
+      - HOST_BROKER_DB=${HOST_DB}
+      - PORT_BROKER_DB=${PORT_BROKER_DB}
 volumes:
   mongo_data:
   rabbitmq_data:

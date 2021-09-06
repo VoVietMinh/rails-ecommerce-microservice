@@ -15,7 +15,7 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: rails_micro
   password: rails_micro
-  host: 127.0.0.1
+  host: <%= ENV['HOST_DB'] || '0.0.0.0' %>
 
 development:
   <<: *default
