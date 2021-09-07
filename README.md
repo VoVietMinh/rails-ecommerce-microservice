@@ -69,6 +69,8 @@ docker-compose up
 * **API Gateway -> http://host.docker.internal:8010**
 * **Sidekiq Management Dashboard -> http://host.docker.internal:8004/sidekiq**
 * **Adminer -> http://host.docker.internal:8080**
-
+* **Postman collection files: 
+* 	postman_api\rails-ecommerce-microservices.postman_environment.json
+* 	postman_api\rails-ecommerce-microservices.postman_collection.json
 * **Web UI -> http://host.docker.internal:8006**
 
