@@ -84,6 +84,17 @@ services:
       - HOST_DB=${HOST_DB}
       - HOST_BROKER_DB=${HOST_DB}
       - PORT_BROKER_DB=${PORT_BROKER_DB}
+  #gateways
+  coregateway.api:
+    image: coregatewayapi
+    build:
+      context: .
+      dockerfile: api-gateways/core-gateway/Dockerfile
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 8010 -b '0.0.0.0'"
+    ports:
+      - "8010:8010"
+    environment:
+      - HOST_DB=${HOST_DB}
 volumes:
   mongo_data:
   rabbitmq_data:
