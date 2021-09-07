@@ -29,11 +29,10 @@ We have implemented below **features over the rails-ecommerce-microservices repo
 * Consuming **Message** BasketCheckout event queue with using **Sidekiq** Configuration
 * **Mysql database** connection and containerization
 	
-#### API Gateway Ocelot Microservice
-* Implement **API Gateways with Ocelot**
+#### API Gateway Microservice
+* Implement **API Gateways**
 * Sample microservices/containers to reroute through the API Gateways
-* Run multiple different **API Gateway/BFF** container types	
-* The Gateway aggregation pattern in Shopping.Aggregator
+*  **PostgreSQL database** connection and containerization
 
 #### WebUI ShoppingApp Microservice
 * Reactjs eccommerce template
@@ -69,6 +68,7 @@ docker-compose up
 * **API Gateway -> http://host.docker.internal:8010**
 * **Sidekiq Management Dashboard -> http://host.docker.internal:8004/sidekiq**
 * **Adminer -> http://host.docker.internal:8080**
-
+* **Postman collection files:**
+* --> **postman_api\rails-ecommerce-microservices.postman_environment.json**
+* --> **postman_api\rails-ecommerce-microservices.postman_collection.json**
 * **Web UI -> http://host.docker.internal:8006**
-
