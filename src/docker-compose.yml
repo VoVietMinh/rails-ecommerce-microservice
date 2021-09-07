@@ -45,7 +45,7 @@ services:
     build:
       context: .
       dockerfile: services/catalog_api/Dockerfile
-    command: bundle exec rails s -p 8000 -b 0.0.0.0
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 8000 -b '0.0.0.0'"
     ports:
       - "8000:8000"
     environment:
@@ -55,7 +55,7 @@ services:
     build:
       context: .
       dockerfile: services/basket_api/Dockerfile
-    command: bundle exec rails s -p 8001 -b 0.0.0.0
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 8001 -b '0.0.0.0'"
     ports:
       - "8001:8001"
     environment:
@@ -67,7 +67,7 @@ services:
     build:
       context: .
       dockerfile: services/ordering_api/Dockerfile
-    command: bash -c "bundle exec rails s -p 8004 -b 0.0.0.0"
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 8004 -b '0.0.0.0'"
     ports:
       - "8004:8004"
     environment:

@@ -19,13 +19,15 @@ class BasketsController < ApplicationController
   def destroy
     user_name = params[:user_name]
     $redis.del user_name
+    head :no_content
   end
 
   def checkout
     # send checkout message to queue
     CheckoutWorker.perform_async(checkout_params)
     # remove the basket
-    
+    $redis.del checkout_params[:user_name]
+    head :no_content
   end
   def cart_params
     params.permit(:user_name, {items: [:quantity, :color, :price, :product_id, :product_name]})
